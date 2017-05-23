@@ -1,0 +1,13 @@
+<div class="carousel slide card-board" data-ride="carousel" data-interval="false" id="card_board_{{$id}}">  
+  	<div class="carousel-inner" ng-transclude>
+    </div>
+    <ol ng-class="{ 'hidden': items.length<=1 }" class="carousel-indicators">					
+        <li data-target="#card_board_{{$parent.$id}}" data-slide-to="{{$index}}" ng-repeat="child_item in items" ng-class="{active:child_item.item_active}"></li>
+    </ol>
+    <a ng-class="{ 'hidden': items.length<=1 }" class="left carousel-control button_cursor" data-target="#card_board_{{$id}}" data-slide="prev">
+    	<span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a ng-class="{ 'hidden': items.length<=1 }" class="right carousel-control button_cursor" data-target="#card_board_{{$id}}" data-slide="next">
+    	<span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div>

@@ -1,0 +1,8 @@
+<div class="lineBarChart clearfix chartJS theme_{{theme}} {{chartType}}">
+	<div ng-class="{column_big: !hideLegend}">
+        <canvas class="responsive_width" width="300" height="300"></canvas>
+    </div>
+    <div ng-class="{hidden: hideLegend}" class="column_small">
+        <ul class="chart_legend ph2_size14" ng-transclude></ul>
+    </div>
+</div>

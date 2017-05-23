@@ -1,0 +1,45 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+@font-face {
+  font-family: 'HelvNeue Light for IBM';
+  src: url("../../fonts/helvetica-neue-light.eot");
+  src: url("../../fonts/helvetica-neue-light.eot?#iefix") format("embedded-opentype"), url("../../fonts/helvetica-neue-light.woff2") format("woff2"), url("../../fonts/helvetica-neue-light.woff") format("woff"), url("../../fonts/helvetica-neue-light.ttf") format("truetype"), url("../../fonts/helvetica-neue-light.svg#helvetica-neue-light") format("svg");
+  font-weight: normal; }
+@font-face {
+  font-family: 'HelvNeue Light Italic for IBM';
+  font-style: normal;
+  src: url("../../fonts/HelvNeueLightItalicforIBM.eot");
+  src: url("../../fonts/HelvNeueLightItalicforIBM.eot?#iefix") format("embedded-opentype"), url("../../fonts/HelvNeueLightItalicforIBM.woff2") format("woff2"), url("../../fonts/HelvNeueLightItalicforIBM.woff") format("woff"), url("../../fonts/HelvNeueLightItalicforIBM.ttf") format("truetype"), url("../../fonts/HelvNeueLightItalicforIBM.svg#HelvNeueLightItalicforIBM") format("svg");
+  font-weight: bold;
+  font-style: italic; }
+@font-face {
+  font-family: 'HelvNeue Medium for IBM';
+  src: url("../../fonts/helvetica-neue-medium.eot");
+  src: url("../../fonts/helvetica-neue-medium.eot?#iefix") format("embedded-opentype"), url("../../fonts/helvetica-neue-medium.woff2") format("woff2"), url("../../fonts/helvetica-neue-medium.woff") format("woff"), url("../../fonts/helvetica-neue-medium.ttf") format("truetype"), url("../../fonts/helvetica-neue-medium.svg#helvetica-neue-medium") format("svg");
+  font-weight: bold; }
+@font-face {
+  font-family: 'HelvNeue Bold for IBM';
+  src: url("../../fonts/HelvNeueBoldforIBM.eot");
+  src: url("../../fonts/HelvNeueBoldforIBM.eot?#iefix") format("embedded-opentype"), url("../../fonts/HelvNeueBoldforIBM.woff2") format("woff2"), url("../../fonts/HelvNeueBoldforIBM.woff") format("woff"), url("../../fonts/HelvNeueBoldforIBM.ttf") format("truetype"), url("../../fonts/HelvNeueBoldforIBM.svg#HelvNeueBoldforIBM") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'HelvNeue Roman for IBM';
+  src: url("../../fonts/helvneueroman.eot");
+  src: url("../../fonts/helvneueroman.eot?#iefix") format("embedded-opentype"), url("../../fonts/helvneueroman.woff") format("woff"), url("../../fonts/helvneueroman.ttf") format("truetype"), url("../../fonts/helvneueroman.svg#HelvNeueRomanforIBM") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url("../../fonts/glyphicons-halflings-regular.eot");
+  src: url("../../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular") format("svg"); }
+/* colors */
+.box-shadow {
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35); }
+
+.dashboard_approver {
+  /* Approver unique CSS here */ }

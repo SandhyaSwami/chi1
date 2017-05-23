@@ -1,0 +1,859 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container-main-dashboard" ng-init="loadAggregationsData();">
+    <div class="full-width-top-bar"></div>
+    <div class="bar">
+        <p class="ml15">Metrics Type: <span>{{wsTempParamObj.dataType}}</span> &boxv; Aggregation:<span>{{wsTempParamObj.aggregationType}}</span>
+        </p>
+        <label class="search" for="toggle-1"></label>
+        <input type="checkbox" id="toggle-1" name="toggle-1" ng-click="showAutoFocus()">
+
+        <div class="search-field">
+            <input type="text" name="search" class="search-box search-query" ng-model="searchMetric"
+                   placeholder="Search Metrics"
+
+                   ng-keypress="keyPressed($event)" id="showFocus">
+        </div>
+
+        <div class="movable-item">
+            <!-- <div class="news">
+                <ul>
+                <li><a href="">Invoice Processing India - great rates this month &raquo;&nbsp;&nbsp;</a></li>
+                <li><a href="">Expense Report New Zealand needs  attention &raquo;&nbsp;&nbsp;</a></li>
+                <li><a href="">Claim Processing - Accuracy better across regions &raquo;&nbsp;&nbsp;</a></li>
+                <li><a href="">RTR tower overall results dropping &raquo;&nbsp;&nbsp;</a></li>
+                <li><a href="">Invoice Processing India  - great rates this month &raquo;&nbsp;&nbsp;</a></li>
+                <li><a href="">Expense Report New Zealand needs  attention &raquo;&nbsp;&nbsp;</a></li>
+                <li><a href="">Claim Processing - Accuracy better across regions &raquo;&nbsp;&nbsp;</a></li>
+                <li><a href="">RTR tower overall results dropping &raquo;&nbsp;&nbsp;</a></li>
+                <li><a href="">Expense Report New Zealand needs  attention &raquo;&nbsp;&nbsp;</a></li>
+                </ul>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="side-panel">
+        <div class="item" ng-click="loadHomeClick()">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                <polygon points="30.9 16 16 2.5 1 16 0.3 15.2 16 1.1 31.6 15.2 "/><path d="M28.1 16.2L16 5.3 3.8 16.2v14.6h24.3L28.1 16.2zM19.7 29.8h-7.4v-9.5c0-1.7 1.4-3.2 3.2-3.2h1.1c1.7 0 3.2 1.4 3.2 3.2v9.5H19.7zM20.7 29.8v-9.5c0-2.3-1.9-4.2-4.2-4.2h-1.1c-2.3 0-4.2 1.9-4.2 4.2v9.5H4.9V16.7L16 6.8l11.1 9.9v13.1C27.1 29.8 20.7 29.8 20.7 29.8z"/></svg>
+            </div>
+            <div class="title">Home</div>
+        </div>
+
+        <div class="item" ng-click="openModalWindow()">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                <path d="M2.8 31.5l2.4-7.9H3.3c-1.6 0-2.9-1.3-2.9-2.9V3.4c0-1.6 1.3-2.9 2.9-2.9h25.4c1.6 0 2.9 1.3 2.9 2.9v17.3c0 1.6-1.3 2.9-2.9 2.9H13.3L2.8 31.5zM3.3 1.7c-1 0-1.7 0.8-1.7 1.7v17.3c0 1 0.8 1.7 1.7 1.7h3.5l-1.8 6 8-6h15.8c1 0 1.7-0.8 1.7-1.7V3.4c0-1-0.8-1.7-1.7-1.7H3.3z"/><circle cx="10.1" cy="12.3" r="1.7"/><circle cx="16.3" cy="12.3" r="1.7"/><circle cx="22.5" cy="12.3" r="1.7"/></svg>
+            </div>
+            <div class="title" data-backdrop="true">View Comments</div>
+        </div>
+
+
+
+
+        <div class="item" ng-class="{active:(weightedAverageOptionIndex==index)}"
+             ng-repeat="(index, rec) in weightedAverageOptionArr" ng-show="isWeightedAverageOn==1"
+             ng-click="changeAggregationsType()">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="4.2" y="11.8" class="st0" width="1" height="8.4"/><rect x="15.5" y="4.6" class="st0" width="1" height="6.7"/><rect x="8.7" y="8.8" transform="matrix(0.4509 -0.8926 0.8926 0.4509 -5.5684 14.7489)" class="st0" width="1" height="6.2"/><rect x="8.6" y="17.1" transform="matrix(-0.4783 -0.8782 0.8782 -0.4783 -4.273 37.8203)" class="st0" width="1" height="6.2"/><rect x="22.4" y="8.8" transform="matrix(-0.4783 -0.8782 0.8782 -0.4783 23.3622 37.6777)" class="st0" width="1" height="6.2"/><rect x="22.6" y="17.1" transform="matrix(0.4509 -0.8926 0.8926 0.4509 -5.319 31.7129)" class="st0" width="1" height="6.2"/><rect x="15.5" y="21" class="st0" width="1" height="6.2"/><rect x="9.6" y="21.8" transform="matrix(0.5185 -0.8551 0.8551 0.5185 -17.7435 21.3392)" class="st0" width="1" height="9.3"/><rect x="21.6" y="1" transform="matrix(0.5185 -0.8551 0.8551 0.5185 5.7609 21.5898)" class="st0" width="1" height="9.3"/><rect x="26.7" y="11.8" class="st0" width="1" height="8.4"/><rect x="9.3" y="0.8" transform="matrix(0.5407 0.8412 -0.8412 0.5407 9.2032 -5.6823)" class="st0" width="1" height="9.6"/><rect x="21.6" y="21.8" transform="matrix(0.5407 0.8412 -0.8412 0.5407 32.5073 -6.3992)" class="st0" width="1" height="9.6"/><path class="st0" d="M4.6 7.2c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C7.1 8.4 6 7.2 4.6 7.2zM4.6 11.3C3.7 11.3 3 10.6 3 9.7c0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C6.2 10.6 5.5 11.3 4.6 11.3z"/><path class="st0" d="M16.1 10.7c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4 3 0 5.4-2.4 5.4-5.4C21.5 13.1 19.1 10.7 16.1 10.7zM16.1 20.7c-2.5 0-4.6-2.1-4.6-4.6 0-2.5 2.1-4.6 4.6-4.6 2.5 0 4.6 2.1 4.6 4.6C20.6 18.6 18.6 20.7 16.1 20.7z"/><path class="st0" d="M15.9 0.2c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C18.4 1.3 17.3 0.2 15.9 0.2zM15.9 4.3c-0.9 0-1.6-0.7-1.6-1.6 0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C17.5 3.6 16.8 4.3 15.9 4.3z"/><path class="st0" d="M27.4 7c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C29.9 8.1 28.8 7 27.4 7zM27.4 11.1c-0.9 0-1.6-0.7-1.6-1.6 0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C29 10.4 28.3 11.1 27.4 11.1z"/><path class="st0" d="M27.4 19.7c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5 0-1-0.6-1.9-1.5-2.3C28.1 19.8 27.8 19.7 27.4 19.7zM27.4 23.8c-0.9 0-1.6-0.7-1.6-1.6 0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C29 23.1 28.3 23.8 27.4 23.8z"/><path class="st0" d="M16.1 26.8c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C18.6 27.9 17.5 26.8 16.1 26.8zM16.1 30.9c-0.9 0-1.6-0.7-1.6-1.6 0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C17.6 30.2 16.9 30.9 16.1 30.9z"/><path class="st0" d="M4.6 19.9c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C7.1 21.1 6 19.9 4.6 19.9zM4.6 24C3.7 24 3 23.3 3 22.4c0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C6.2 23.3 5.5 24 4.6 24z"/></svg>
+            </div>
+            <div class="title">Data {{rec}}</div>
+        </div>
+
+
+
+
+
+        <div class="item" ng-repeat="(index,metric) in metricTypeArr" ng-click="onClickMetricType(metric,index)"
+             ng-class="{active:(metricTypeSelectedIndex==index)}">
+            <div class="icon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path class="st0" d="M29.7 0.2H2.3c-1.1 0-2.1 0.9-2.1 2.1v27.5c0 1.1 0.9 2.1 2.1 2.1h27.5c1.1 0 2.1-0.9 2-2.1V2.2C31.8 1.1 30.8 0.2 29.7 0.2zM31 29.1c0.1 1.1-0.8 2-1.9 2H3c-1.1 0-2-0.9-2-2V2.9c0-1.1 0.9-2 2-2h26c1.1 0 2 0.9 2 2V29.1z"/><rect x="4.3" y="6.8" class="st0" width="1.9" height="1.9"/><path class="st0" d="M18.9 4.5c-1.5 0-2.7 1-3.1 2.3H7v1.9h8.9c0.4 1.3 1.6 2.2 3 2.2 1.8 0 3.2-1.4 3.2-3.2C22.1 5.9 20.7 4.5 18.9 4.5zM18.9 10.3c-1.4 0-2.6-1.2-2.6-2.6 0-1.4 1.2-2.6 2.6-2.6 1.4 0 2.6 1.2 2.6 2.6C21.5 9.1 20.3 10.3 18.9 10.3z"/><rect x="23.3" y="6.8" class="st0" width="4.4" height="1.9"/><rect x="4.3" y="15.1" class="st0" width="1.9" height="1.9"/><rect x="7" y="15.1" class="st0" width="4.6" height="1.9"/><path class="st0" d="M19.1 15.1c-0.4-1.3-1.7-2.3-3.1-2.3 -1.8 0-3.2 1.4-3.2 3.2s1.4 3.2 3.2 3.2c1.4 0 2.6-0.9 3-2.2h8.7v-1.9H19.1zM16 18.6c-1.4 0-2.6-1.2-2.6-2.6 0-1.4 1.2-2.6 2.6-2.6s2.6 1.2 2.6 2.6C18.6 17.4 17.4 18.6 16 18.6z"/><rect x="4.3" y="23.3" class="st0" width="1.9" height="1.9"/><path class="st0" d="M18.9 21.1c-1.5 0-2.7 0.9-3 2.2H7v1.9h8.9c0.4 1.3 1.6 2.2 3 2.2 1.8 0 3.2-1.4 3.2-3.2S20.7 21.1 18.9 21.1zM18.9 26.9c-1.4 0-2.6-1.2-2.6-2.6s1.2-2.6 2.6-2.6c1.4 0 2.6 1.2 2.6 2.6S20.3 26.9 18.9 26.9z"/><rect x="23.3" y="23.3" class="st0" width="4.4" height="1.9"/></svg>
+            </div>
+            <div class="title">{{metric.metricType}}</div>
+        </div>
+
+        <!-- this needs to be cleaned - keep themeing function -->
+        <div class="pull-side-menu" style="display: none;">
+            <div class="links">
+                <div class="header">Metrics Type</div>
+                <a href="" ng-repeat="(index,metric) in metricTypeArr" ng-click="onClickMetricType(metric,index)"
+                   ng-class="{active:(metricTypeSelectedIndex==index)}">{{metric.metricType}}</a>
+
+                <div class="header" ng-show="isWeightedAverageOn==1">Aggregation Model</div>
+                <a href="" ng-class="{active:(weightedAverageOptionIndex==index)}"
+                   ng-repeat="(index, rec) in weightedAverageOptionArr" ng-show="isWeightedAverageOn==1"
+                   ng-click="changeAggregationsType()">Data {{rec}}</a>
+
+                <div class="header">Color Theme</div>
+                <a href="" ng-click="changeTheme('theme1')" ng-class="{active:(selectedTheme=='theme1')}">Light</a>
+                <a href="" ng-click="changeTheme('theme2')" ng-class="{active:(selectedTheme=='theme2')}">Dark</a>
+            </div>
+            <div class="close-handle">
+                <div class="arrow-right"></div>
+                <div class="arrow-left"></div>
+            </div>
+        </div>
+        <div class="status-element"></div>
+
+    </div>
+    <div class="main-panel">
+        <div class="top-nav" ng-hide="isCommentsVisible">
+            <div class="dashboard_nav_menu">
+                <div class="left">
+                    <a href="" alt="{{drillDownHierarchyArr[0].optionLabel}}"
+                       ng-click="onClickBreadCrumb(drillDownHierarchyArr[0],$event)"
+                            >{{drillDownHierarchyArr[0].shortname+"&nbsp;&nbsp;>&nbsp;"}}</a>
+
+                    <div ng-repeat="(index1, rec) in drillDownHierarchyArr" class="btn-group dropdown-select"
+                         ng-if="aggregationsDrillOptionsArrMultilevelArr[index1].length>0">
+                        <button ng-if="selectedOptionArr[index1+1]==undefined" type="button"
+                                class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                            {{drillDownLabelArr[index1+1]}}
+                        <span class="glyphicon glyphicon-triangle-bottom"
+                              style="color:#064366;"></span>
+
+                        </button>
+
+                        <button ng-if="selectedOptionArr[index1+1]!=undefined" type="button"
+                                class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                            {{selectedOptionArr[index1+1]}}
+                        <span class="glyphicon glyphicon-triangle-bottom"
+                              style="color:#064366;"></span>
+
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-click="changeAggregationsDownOption(index1,'true')"
+                                ng-class="{active:(drillDownOptionSelectedIndex==index)}"
+                                ng-repeat="(index, rec) in aggregationsDrillOptionsArrMultilevelArr[index1]">
+                                <a> {{rec.shortname}} </a>
+                            </li>
+                        </ul>
+                        <span style="color: #001934;text-decoration: none;font-size: 16px;">&nbsp;&nbsp;>&nbsp;</span>
+                        <!--  <select ng-model="selectedItem" ng-options="x.optionLabel for x in aggregationsDrillOptionsArrMultilevelArr[index1]" ng-change="changeAggregationsDownOption(selectedItem)">
+                              &lt;!&ndash;<option value="" selected="selected">{{selectedItem.}}</option>&ndash;&gt;
+                          </select>-->
+                    </div>
+                </div>
+
+                <div class="right">
+                    <div class="btn-group pull-right dropdown-select" style="z-index:100;">
+                        <button type="button" class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                            {{aggregationsSelectedDate}}
+                            <span class="glyphicon glyphicon-triangle-bottom margin_left5"
+                                  style="color:#5A6564;"></span>
+                        </button>
+                        <ul class="dropdown-menu text-left" role="menu">
+                            <li ng-click="changeAggregationsMonth(index)"
+                                ng-class="{active:(portalMonthSelectedIndex==index)}"
+                                ng-repeat="(index, rec) in aggregationsDateArr">
+                                <a> {{rec}} </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div ng-if="!isCardViewVisible && wsTempParamObj.apiversion>=2.2"
+                     class="btn-group pull-right dropdown-select" style=" margin-right:30px;">
+                    <button type="button" class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                        {{processValue}}
+                        <span class="glyphicon glyphicon-triangle-bottom margin_left5" style="color:#5A6564;"></span>
+                    </button>
+                    <ul class="dropdown-menu text-left" role="menu">
+                        <li ng-click="changeAggregationsProcess()"
+                            ng-class="{active:(portalProcessSelectedIndex==index)}"
+                            ng-repeat="(index, rec) in aggregationsProcessArr">
+                            <a> {{rec}} </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div ng-show="aggregationsProcessArr.length>0 && isPage2Visible"
+                     class="btn-group pull-right dropdown-select" style="z-index:100; margin-right:60px;">
+                    <button type="button" class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                        {{portalStatusLabel}}
+                        <span class="glyphicon glyphicon-triangle-bottom margin_left5" style="color:#5A6564;"></span>
+                    </button>
+                    <ul class="dropdown-menu text-left" role="menu">
+                        <li ng-click="changeAggregationsStatus()" ng-class="{active:(portalStatusSelectedIndex==index)}"
+                            ng-repeat="(index, rec) in aggregationsStatusArr">
+                            <a> {{rec.label}} </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+
+        <div class="main_page_container">
+            <div class="demo__slides_main" bc-flickity="{{ flickityOptions_main }}"
+                 bc-flickity-id="{{ flickityId_main }}">
+                <div class="demo__slide_main">
+                    <div class="page-one">
+                        <div class="fourth fl mb20 mr20">
+                            <div class="card-top-stripe">Summary</div>
+                            <div class="card-container pr0">
+                                <div class="doughnut-total">
+                                    <div class="page-one-doughnut-total" ng-click="openDoughnutModal()">
+                                        <dashboard-chart
+                                                data="doughnutChartData"
+                                                options="doughnutChartOption"
+                                                type="donughtChart"
+                                                on-load="getChartObjDoughnut(obj)" width="200px" height="230">
+                                        </dashboard-chart>
+                                        <div class="doughnut-value">
+                                            <span class="value donutVal"></span><br>
+                                            <span class="month">Total</span>
+                                        </div>
+                                        <div class="button-rounded">View Breakdown</div>
+                                    </div>
+                                </div>
+                                <div class="doughnut-table">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Value</th>
+                                            <th>%</th>
+                                            <th>Trend</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-click="onClickCard('G');">
+                                            <td class="value">{{selectedAggregationRecord.green}}</td>
+                                            <td class="percent">
+                                                {{calculateTheDoughnutPer(selectedAggregationRecord.green)}}<span
+                                                    style="font-size:0.5em;">%</span></td>
+                                            <td class="trend">
+                                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.green,previousAggregationRecord.green))"></div>
+                                            </td>
+                                            <td class="tr">&raquo;</td>
+                                        </tr>
+                                        <tr ng-click="onClickCard('Y');">
+                                            <td class="value">{{selectedAggregationRecord.yellow}}</td>
+                                            <td class="percent">
+                                                {{calculateTheDoughnutPer(selectedAggregationRecord.yellow)}} <span
+                                                    style="font-size:0.5em;">%</span></td>
+                                            <td class="trend">
+                                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.yellow,previousAggregationRecord.yellow))"></div>
+                                            </td>
+                                            <td class="tr">&raquo;</td>
+                                        </tr>
+                                        <tr ng-click="onClickCard('R');">
+                                            <td class="value">{{selectedAggregationRecord.red}}</td>
+                                            <td class="percent">
+                                                {{calculateTheDoughnutPer(selectedAggregationRecord.red)}} <span
+                                                    style="font-size:0.5em;">%</span></td>
+                                            <td class="trend">
+                                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.red,previousAggregationRecord.red))"></div>
+                                            </td>
+                                            <td class="tr">&raquo;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fourth fl mb20">
+                            <div class="card-top-stripe">Status by Process
+                                <!--                         <div class="button-englarge"></div> -->
+                            </div>
+                            <div class="card-container">
+                                <!--  <div class="treemap" id="treemapContent">
+                                      &lt;!&ndash;<svg id="svgContent" width="410" height="245"></svg>&ndash;&gt;
+                                  </div>-->
+                                <p id="chart">
+                            </div>
+                        </div>
+                        <div class="half-x">
+                            <div class="card-top-stripe">Status by History
+                                <!-- <div class="button-englarge"></div> -->
+                                <span class="button-export" data-toggle="tooltip" data-placement="top"
+                                      title="Data Export" ng-click="exportToCSV()"></span>
+
+
+                                <div class="button-percentage " data-toggle="tooltip" data-placement="top" title="Percentage Graph" ng-click="onClickChartType('percentage')"></div>
+                                <div class="button-trended clicked" data-toggle="tooltip" data-placement="top" title="Trended Graph" ng-click="onClickChartType('trended')"></div>
+
+
+
+                            </div>
+                            <div class="card-container">
+                                <dashboard-chart
+                                    data="barChartData"
+                                    options="barChartOption"
+                                    type="chartType"
+                                    on-load="getChartObjBar(obj)"
+                                    width="860px" height="255px">
+                                </dashboard-chart>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Second Page -->
+                    <div class="demo__slide_main">
+                        <div>
+                            <div class="demo__slides_card" bc-flickity="{{ flickityOptionsCard }}"
+                                 bc-flickity-id="{{ flickityIdCard }}">
+                                <div class="slide_card">
+                                    <div class="card-view noselect">
+                                        <div class="animated fadeIn" ng-click="intializeDrillDownData(record,index);"
+                                             ng-repeat="(index,record)  in aggregationsMetricMasterArr"
+                                             ng-class="['list' + $index]" style="cursor: pointer;">
+                                            <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+                                                <div class="flipper">
+                                                    <!-- front content -->
+                                                    <div class="front">
+                                                        <div class="card-view-front">
+                                                            <div class="card-header-front"
+                                                                 ng-class="getCategoryColor(record.status)" style="color: white!important;">
+                                                               {{formatBreadCrumbText(record)}}
+                                                            </div>
+                                                            <div class="card-content-front">
+                                                                <p>{{record.metricName}}</p>
+                                                            </div>
+                                                            <div class="flex-background-front">
+                                                                <span 
+                                                                          class="data-result">{{record.actual}}</span>
+                                                            </div>
+                                                            <div class="record-actual-results">
+                                                                <div class="center-me">
+                                                                    <div ng-class="displayTrendStatus(record.trend)"></div>
+                                                                    <span ng-if="wsTempParamObj.apiversion<3.0"
+                                                                          class="ico-text">{{record.actual}}</span>
+                                                                    <span ng-if="wsTempParamObj.apiversion>=3.0"
+                                                                          class="ico-text">{{record.trendDiff}}</span>
+                                                                          <span class="data-description">change since previous period</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- back content -->
+                                                    <div class="back">
+                                                        <div class="card-view-back">
+                                                            <p class="metric-name-height">{{record.metricName}}</p>
+                                                            <div class="container-graph">
+                                                                <div class="metric-percentage">
+                                                                    <span class="metric-percentage-value">{{record.min}}</span>
+                                                                    <span class="metric-percentage-value">{{record.target}}</span>
+                                                                    <span class="metric-percentage-value">{{record.actual}}</span>
+                                                                </div>
+                                                                <div class="flex-background">
+                                                                <div class="progress-hidden progress-bar-vertical">
+                                                                    <div id="minBar"
+                                                                         class="progress-bar progress-bar-min"
+                                                                         role="progressbar" aria-valuenow="100"
+                                                                         aria-valuemin="0" aria-valuemax="100"
+                                                                         style="{{formatMetricData(record.min,record.metricType,record,'min')}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-hidden progress-bar-vertical">
+                                                                    <div id="targetBar"
+                                                                         class="progress-bar progress-bar-target"
+                                                                         role="progressbar" aria-valuenow="60"
+                                                                         aria-valuemin="0" aria-valuemax="100"
+                                                                         style="{{formatMetricData(record.target,record.metricType,record,'target')}}">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-hidden progress-bar-vertical">
+                                                                    <div id="actualBar" class="progress-bar"
+                                                                         role="progressbar" aria-valuenow="80"
+                                                                         aria-valuemin="0" aria-valuemax="100"
+                                                                         style="{{formatMetricData(record.actual,record.metricType,record,'actual')}}"
+                                                                         ng-class="getCategoryColor(record.status)">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="metric-label-container">
+                                                                <span class="metric-label">{{minLabel}}</span>
+                                                                <span class="metric-label">{{targetLabel}}</span>
+                                                                <span class="metric-label">{{resultLabel}}</span>
+                                                                <a href="" title="">View Trend &raquo;</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="demo__slide_card">
+                                    <table class="table">
+                                        <thead class="thead-inverse">
+                                        <tr>
+                                            <th class="list-view-description">Description</th>
+                                            <th class="list-view-metrics">Current</th>
+                                            <th class="list-view-metrics">Improving</th>
+                                            <th class="list-view-metrics">No Change</th>
+                                            <th class="list-view-status">Status</th>
+                                            <th class="list-view-trend">Trend</th>
+                                            <th class="list-view-right-arrow"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="list-view scroll-snap-list-view noselect">
+                                        <tr class="animated fadeIn table-row" ng-click="intializeDrillDownData(record,index);"
+                                            ng-repeat="record in aggregationsMetricMasterArr"
+                                            ng-class="['list' + $index]">
+                                            <td class="list-view-description">{{formatBreadCrumbText(record)}}
+                                                {{record.metricName}}
+                                            </td>
+                                            <td class="list-view-metrics">{{record.actual}}</td>
+                                            <td class="list-view-metrics">{{record.target}}</td>
+                                            <td class="list-view-metrics">{{record.min}}</td>
+                                            <td class="list-view-status">
+                                                <div class="status-color"
+                                                     ng-class="getCategoryColor(record.status)"></div>
+                                            </td>
+                                            <td class="list-view-trend"
+                                                ng-class="displayTrendStatus(record.trend)"></td>
+                                            <td class="list-view-right-arrow"><i class="fa fa-chevron-right"></i></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="demo__slide_main">
+                        <div class="page-three">
+                            <div class="pg3-comments-wrapper">
+                                <div class="graph">
+                                    <div class="status-bar">
+                                        <div class="current">
+<!--                                          <div class="title">{{resultLabel}}</div> -->
+                                            <div class="value">{{selectedGraphRecord.current}}{{valueTypeSymbol}}</div>
+
+                                        </div>
+                                        <div class="info">
+                                            <div class="path-row"> {{formatBreadCrumbText(selectedMetricRecord)}}</div>
+                                            <!--<div class="path-row"> {{selectedMetricRecord.fullPath}}</div>-->
+                                            <div class="title-row">{{selectedMetricRecord.metricName}}</div>
+                                            <div class="status-row">
+                                                <div class="ico-status"
+                                                     ng-class="getCategoryColor(selectedGraphRecord.status)"></div>
+                                                <span style="margin-right:20px; float:left;">Status</span>
+                                                <span class="trend"
+                                                      ng-class="displayTrendStatus(selectedGraphRecord.trend)"></span>
+                                                <span style="margin-right:20px; float:left;">Trend</span>
+                                                <span class="target">{{selectedGraphRecord.target}}{{valueTypeSymbol}}</span>
+                                                <span style="margin-right:20px; float:left;">{{targetLabel}}</span>
+                                                <span class="lower">{{selectedGraphRecord.min}}{{valueTypeSymbol}}</span>
+                                                <span style="margin-right:20px; float:left;">{{minLabel}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chart">
+                                        <dashboard-chart
+                                                data="lineChartCommentData"
+                                                options="lineChartCommentOption"
+                                                type="chartTypeComment"
+                                                on-load="getChartObjLineComment(obj)"
+                                                on-click="commentChartClick(data)"
+                                                width="520px" height="400px"
+                                                >
+                                        </dashboard-chart>
+                                    </div>
+                                    <div class="legend">
+                                        <div class="ico-status ico-status-black"></div>
+                                        <span class="fl mr15">{{resultLabel}}</span>
+
+                                        <div class="ico-status ico-status-green"></div>
+                                        <span class="fl mr15">{{targetLabel}}</span>
+
+                                        <div class="ico-status ico-status-red"></div>
+                                        <span class="fl mr15">{{minLabel}}</span>
+
+                                    </div>
+<!--                                     <div class="button-rounded" style="width: 150px; margin: 0 auto; margin-top: 10px;"
+                                    ng-click="openRawDataModal()">View Raw Data</div> -->
+
+                                    <div class="navigation" ng-if="showNavigation">
+                                        <span ng-class="disablePrevious()" class="prev" ng-click="onClickPrevious()">
+                                            <span class="button-circle mr5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25"><polygon class="icon" points="17.3 19.6 16 20.8 7.7 12.5 16 4.2 17.3 5.4 10.2 12.5 "/></svg>
+                                            </span>
+                                            <span>Previous Metric</span>
+                                        </span>
+
+                                        <span class="meter"> &nbsp;{{currentPageCount+1}}&nbsp;/&nbsp;{{drillThroughPageArr.length}} &nbsp;</span>
+
+                                        <span ng-class="disableNext()"  class="next" ng-click="onClickNext()">
+                                            <span>Next Metric</span>
+                                            <span class="button-circle ml5">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+                                                <polygon class="icon" points="7.7 5.4 9 4.2 17.3 12.5 9 20.8 7.7 19.6 14.8 12.5 "/></svg>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="comments">
+                                    <div class="comments-top-stripe">
+                                        <span class="fl mr15">{{selectedSLACommentArr.length}} Comments</span>
+<!--                                         <span class="button-pdf-export" data-toggle="tooltip" data-placement="bottom"
+                                              title="Export to PDF"></span> -->
+                                        <span style="margin-left:100px;">{{selectedDate}}</span>
+                                        <span class="button-close" ng-click="loadPageTwo()"></span>
+
+                                    </div>
+                                    <ul class="user-comments-wrapper">
+                                        <li ng-repeat="(index,record) in selectedSLACommentArr">
+                                            <div class="user-comments-id">
+                                                <div class="id">{{croppedUsername(record.userName)}}</div>
+                                            </div>
+                                            <div class="comments-panel">
+                                                <div class="username">
+                                                    <span class="">{{record.userName.split("[")[0]}}</span>
+                                                    <span class="date">{{record.commentTimestamp}}</span>
+                                                </div>
+                                                <div class="comments-content">{{record.commentContent}}</div>
+                                                <div class="comments-attachments"
+                                                     ng-repeat="(ind,fileRec) in selectedSLACommentArr[index].filenameObj">
+                                                    <div class="attachments-container"
+                                                         ng-if="fileRec.attachmentKey!=''">
+                                                        <span class="glyphicons glyphicons-file"></span>
+
+                                                        <p><a href="" ng-click="downloadFile(fileRec)">{{fileRec.fileName}}</a>
+                                                            <a ng-if="fileRec.isloggedUser==true" href=""
+                                                               data-toggle="modal"
+                                                               data-target="#DeleteFileModal" title=""
+                                                               ng-click="deleteFile(fileRec)">
+                                                                <span class="ico_close_black"></span>
+                                                            </a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div ng-if="isLoggedUser(record)" class="comments-controls">
+                                                    <!-- <span class="fl">Reply</span>-->
+                                                    <span class="fr"><a ng-click="editComment(record,index)">Edit</a> &boxv; <a
+                                                            ng-click="deleteComment(record,index)">Delete</a></span>
+                                                </div>
+                                            </div>
+
+
+                                        </li>
+                                    </ul>
+                                    <div class="add-comments-area">
+                                        <textarea id="comment_text" class="textarea" placeholder="Enter Your comment"
+                                                  ng-model="commentArea.comment"></textarea>
+
+                                        <div class="add-comments-controls">
+                                            <!-- <div class="add-comment" ng-click="addSendCommentToggle()">add comment</div> -->
+                                            <div class="button-rounded send-comment" ng-click="onAddComment($event)">Send
+                                            </div>
+                                            <label class="button-circle fr fileContainer">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25">
+                                                <path class="icon" d="M17.1 8.3c-0.7-0.7-1.5-1-2.4-1l0 0c-0.9 0-1.8 0.4-2.4 1L7.7 13c-1 1.1-1 2.8 0 3.9 0.5 0.5 1.2 0.8 1.9 0.8 0.7 0 1.4-0.3 1.9-0.8l3.4-3.5c0.8-0.8 0.8-2 0-2.8 -0.3-0.4-0.8-0.6-1.3-0.6l0 0c-0.5 0-1 0.2-1.4 0.6l-2.6 2.6 0.7 0.7 2.6-2.6c0.2-0.2 0.4-0.3 0.7-0.3 0.3 0 0.5 0.1 0.7 0.3 0.4 0.4 0.4 1 0 1.4l-3.4 3.5c-0.6 0.7-1.7 0.7-2.3 0 -0.7-0.7-0.7-1.8 0-2.5L13 9c0.5-0.5 1.1-0.7 1.7-0.7l0 0c0.7 0 1.2 0.3 1.7 0.7 1 1 1 2.5 0 3.5l-3.7 3.8 0.7 0.7 3.7-3.8C18.4 11.9 18.4 9.7 17.1 8.3z"/>
+                                                </svg>
+
+
+                                                <input id="fileuploadId"
+                                                type="file"
+                                                id="file1"
+                                                name="file" multiple
+                                                file-change handler="getTheFiles(files)"
+                                                />
+                                                <!--accept=".doc,.docx,.csv,.xlsx,.xls,.txt,.jpeg,.bmp,.jpg,.png"-->
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--     <div class="nav-footer">
+                    <div class="button-back" ng-click="navigateBack()" ng-hide="!isPage2Visible && !isCommentsVisible"></div>
+                    <div class="page1-footer" ng-show="!isPage2Visible && !isCommentsVisible">
+
+                        <label class="switch">
+                            <input type="checkbox" ng-click="changeChartType($event)">
+                            <div class="slider ico-bar-line" ></div>
+                        </label>
+                    </div>
+
+                    <div class="page2-footer" ng-show="isPage2Visible" style="background:#e4e2e7;">
+                        <ul class="button-small-group">
+                            <label class="switch">
+                                <input type="checkbox" ng-click="changeCardListView($event)" checked>
+                                <div class="slider ico-list-card"></div>
+                            </label>
+                        </ul>
+                        <span>Metrics
+                            <span class="view-record"></span>&nbsp;&nbsp;of&nbsp;&nbsp;<span class="view-record-total">{{aggregationsMetricMasterArr.length}}</span>&nbsp;&nbsp;Total
+                        </span>
+                    </div>
+                    <div class="page2-footer" ng-show="isCommentsVisible">
+                        <ul class="button-rect-group-large">
+                            <li class="button-rectangle " ng-class="{active:(isViewCommentsVisible==false)}"  ng-click="showAddComments()">Add Comment</li>
+                            <li class="button-rectangle " ng-class="{active:(isViewCommentsVisible==true)}"  ng-click="viewComments()">View Comments ({{selectedSLACommentArr.length}})</li>
+                        </ul>
+                    </div>
+                </div> -->
+
+        </div>
+    </div>
+
+
+    <!-- comments summary -->
+
+    <modal id="tableID" modal-show="showTable" class="modal" style="display: none;">
+        <div class="modal-content animated modal-comments-summary">
+            <div class="modal-header">
+                <span class="user">User</span>
+                <span class="path">Hierarchy Path</span>
+                <span class="name">Metric Name</span>
+                <span class="period">Period</span>
+                <span class="attachment">Attachments</span>
+                <span class="comments">Comments</span>
+                <button type="button" class="close ng-scope"
+                        data-dismiss="modal" aria-label="Close">
+                    <span class="button-close"></span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!--             <table class="table table-hover"> -->
+                <table class="table">
+                    <tbody>
+                    <tr ng-repeat="(index, rec) in hierarchyCommentList">
+                        <td class="user pl10">{{rec.userName}}<br>{{rec.commentTime}}</td>
+                        <td class="path pl0">{{rec.fullPath}}</td>
+                        <td class="name pl0">{{rec.metricName}}</td>
+                        <td class="period pl0">{{convertToMonthYearFormat(rec.interval)}}</td>
+                        <td class="attachment pl0">
+                            <div class="attachments-container"
+                                 ng-repeat="(index, fileRec) in hierarchyCommentList[index].filenameObj">
+                                <span class="glyphicons glyphicons-file"></span>
+
+                                <p><a ng-click="downloadFile(fileRec)" style="cursor: pointer!important;"
+                                      data-toggle="modal" data-target="#MetricsInformationModal" title="">{{fileRec.fileName}}</a>
+                                    <a ng-if="fileRec.isloggedUser==true" href="" data-toggle="modal"
+                                       style="cursor: pointer!important;"
+                                       data-target="#DeleteFileModal" title="" ng-click="deleteFile(fileRec)">
+                                        <span class="ico_delete_button"></span>
+                                    </a>
+                                </p>
+                            </div>
+                        </td>
+                        <td class="comments pl0">{{rec.commentContent}}
+                            <span class="text-right read-more-link" ng-click="onClickView(rec,index)"><a
+                                    href="">View Comments &raquo;</a></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </modal>
+
+    <modal id="doughnutModal" modal-show="showDoughnut" class="modal" style="display: none;">
+        <div class="modal-content animated">
+            <div class="modal-header">
+                <span>Summary Breakdown</span>
+            
+                <button type="button" class="close ng-scope"
+                        data-dismiss="modal" aria-label="Close">
+                    <span class="button-close"></span>
+                </button>
+            </div>
+            <div class="summary-breakdown-container">
+                <div class="doughnut-total-new">
+                    <div class="page-one-doughnut-total-new col-md-10">
+                        <dashboard-chart
+                                data="doughnutChartData"
+                                options="doughnutChartOption"
+                                type="donughtChart"
+                                on-load="getChartObjDoughnutTwo(obj)" width="168px" height="190">
+                        </dashboard-chart>
+                    </div>
+                </div>
+                <div class="doughnut-table-new col-md-22">
+                    <table class="table table-responsive">
+                        <tbody>
+                        <tr>
+                            <td class="trend-icon-breakdown">
+                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.green,previousAggregationRecord.green))"></div>
+                            </td>
+                            <td class="metric-value">{{selectedAggregationRecord.green}}</td>
+                        </tr>
+                        <tr>
+                            <td class="trend-icon-breakdown">
+                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.yellow,previousAggregationRecord.yellow))"></div>
+                            </td>
+                            <td class="metric-value">{{selectedAggregationRecord.yellow}}</td>
+                        </tr>
+                        <tr>
+                            <td class="trend-icon-breakdown">
+                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.red,previousAggregationRecord.red))"></div>
+                            </td>
+                            <td class="metric-value">{{selectedAggregationRecord.red}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-body" style="max-height: 450px;">
+                <table class="table">
+                    <tbody>
+                    <tr ng-repeat="(index, rec) in breakdownSummaryList">
+                        <td class="table-width-country">{{rec.hierarchyName}}</td>
+                        <td class="table-width-country-green" ng-click="onClickCard('G');">
+                            <span class="value">{{rec.G}}</span>
+
+                            <div class="data">
+                                <div class="data-bar-green" style="{{calculatePerc(rec.greenPer)}}"></div>
+
+                            </div>
+                        </td>
+                        <td class="table-width-country-yellow" ng-click="onClickCard('Y');">
+                            <span class="value">{{rec.Y}}</span>
+
+                            <div class="data">
+                                <div class="data-bar-yellow" style="{{calculatePerc(rec.yellowPer)}}"></div>
+
+                            </div>
+                        </td>
+                        <td class="table-width-country-red" ng-click="onClickCard('R');">
+                            <span class="value">{{rec.R}}</span>
+
+                            <div class="data">
+                                <div class="data-bar-red" style="{{calculatePerc(rec.redPer)}}"></div>
+
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </modal>
+
+    <modal id="DeleteFileModal" modal-show="showDeleteDialog" class="modal" style="display: none;">
+        <div class="modal-container-remove-file">
+            <div class="modal-header-comments">
+                <a href="#" data-dismiss="modal" aria-hidden="true" class="ico_close"></a>
+
+                <p>{{selectedFileRecord.fileName}}</p>
+            </div>
+            <div class="modal-body-comments">
+                <p><span class="glyphicons glyphicons-warning-sign"> You are about to delete this document </span></p>
+            </div>
+            <div class="modal-footer-comments">
+                <a class="button-delete button-cancel" style="cursor: pointer!important;" data-dismiss="modal"
+                   ng-click="showDeleteDialog=false"><span class="glyphicon glyphicons-remove"> Cancel</span></a>
+                <a class="button-delete button-confirm" style="cursor: pointer!important;"><span
+                        class="glyphicon glyphicons-check" ng-click="onConfirmDelete()">Confirm</span></a>
+            </div>
+        </div>
+    </modal>
+
+
+    <modal id="DeleteCommentModal" modal-show="showCommentDeleteDialog" class="modal" style="display: none;">
+        <div class="modal-container-remove-file">
+            <div class="modal-header-comments">
+                <a  data-dismiss="modal" aria-hidden="true" class="ico_close" ng-click="showCommentDeleteDialog=false" style="cursor: pointer!important;"></a>
+
+                <p>{{selectedFileRecord.fileName}}</p>
+            </div>
+            <div class="modal-body-comments">
+                <p><span class="glyphicons glyphicons-warning-sign"> Do you really want to delete this comment? </span>
+                </p>
+            </div>
+            <div class="modal-footer-comments">
+                <a class="button-delete button-cancel" style="cursor: pointer!important;" data-dismiss="modal"
+                   ng-click="showCommentDeleteDialog=false"><span class="glyphicon glyphicons-remove"> Cancel</span></a>
+                <a class="button-delete button-confirm" style="cursor: pointer!important;"><span
+                        class="glyphicon glyphicons-check" ng-click="confirmDeleteComment()">Confirm</span></a>
+            </div>
+        </div>
+    </modal>
+
+
+    <modal id="attachmentModal" modal-show="showAttachmentDialog" class="modal" style="display: none;">
+        <div class="modal-container-remove-file">
+            <div class="modal-header-comments">
+                <a href="#" data-dismiss="modal" aria-hidden="true" class="ico_close"></a>
+                <!--<p>{{selectedFileRecord.fileName}}</p>-->
+            </div>
+            <div class="modal-body-comments">
+                <p><span class="glyphicons glyphicons-warning-sign"> <br>Only 3 attachments is allowed! <br>
+                But comment will get added to metric!</span></p>
+            </div>
+            <br>
+
+            <div class="modal-footer-comments">
+                <a class="button-delete button-cancel" style="cursor: pointer!important;" data-dismiss="modal"
+                   ng-click="showAttachmentDialog=false"><span class="glyphicon glyphicons-remove"> OK</span></a>
+            </div>
+        </div>
+    </modal>
+
+    <!-- modal search -->
+    <modal id="SearchMetrix" modal-show="showSearchModal" class="modal" style="display: none;">
+        <div class="modal-content animated modal-search-metrics">
+            <div class="modal-header">
+            <span style="font-family: HelvNeue Roman for IBM;">Search results for: '{{searchMetric}}'</span>
+                
+                <button type="button" class="close ng-scope" data-dismiss="modal" aria-label="Close">
+                    <span class="button-close"></span>
+                </button>
+                <br>
+<div class="table-header">
+    <span class="status">Status</span>
+    <span class="name">Metrics Name</span>
+    <span class="path">Path</span>
+    <span class="current">Current</span>
+    <span class="target">Target</span>
+    <span class="min">Min</span>
+    <span class="trend">Trend</span>
+    <span class="comments">Comments</span>
+<!--     <span class="view-more">&nbsp;</span> -->
+</div>
+            </div>
+            <div class="modal-body p0" style="overflow-y:scroll;height: 510px;">
+
+                <div class="table-row"
+                     ng-repeat="(index, rec) in searchMetricsArr | filter:{metricName:searchMetric} as filteredItems"
+                     style="float:left; padding:5px 0;">
+                    <span class="status"><span class="circle" ng-class="getCategoryColor(rec.status)"></span></span>
+                    <span class="name" style="line-height: 16px;">{{rec.metricName}}</span>
+                    <span class="path">{{rec.fullPath}}</span>
+                    <span class="current">{{rec.actual}}{{rec.searchMetricTypeSymbol}}</span>
+                    <span class="target">{{rec.target}}{{rec.searchMetricTypeSymbol}}</span>
+                    <span class="min">{{rec.min}}{{rec.searchMetricTypeSymbol}}</span>
+                    <span class="trend"><span ng-class="displayTrendStatus(rec.trend)"></span></span>
+                    <span class="comments">{{rec.commentCount}} &nbsp;</span>
+                    <span class="view-more"><span ng-click="onClickSearchView(rec,index)">View &raquo;</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </modal>
+
+    <modal modal-show="showRawData" class="modal" style="display: none;">
+        <div class="modal-content animated">
+            <div class="modal-header">
+                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo, cum.</span>
+                <button type="button" class="close ng-scope"
+                        data-dismiss="modal" aria-label="Close">
+                    <span class="button-close"></span>
+                </button>
+            </div>
+            <div class="modal-body p10">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatum, a!
+            </div>
+
+
+        </div>
+    </modal>
+
+
+
+</div>

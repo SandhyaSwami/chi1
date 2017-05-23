@@ -1,0 +1,12 @@
+<div class="videobox">
+    <div class="videobox_slider">
+        <div class="videobox_posters" ng-transclude>
+        </div>
+        <video ng-if="linkMp4" controls height="auto" width="100%">
+            <source ng-src="{{linkMp4}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <iframe ng-if="linkMediahub" class="video_iframe" data-src="{{linkMediahub | trustUrl}}" height="243" width="432"></iframe>
+        <iframe ng-if="youtubeId" class="youtube_iframe" data-src="{{youtubeId}}"></iframe>
+    </div>
+</div>

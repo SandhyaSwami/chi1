@@ -1,0 +1,317 @@
+<div class="container-main-dashboard dashboard_approver" ng-init="loadAggregationsData();">
+    <div class="full-width-top-bar"></div>
+    <div class="bar">
+        <p class="ml15">Metrics Type: <span>{{wsTempParamObj.dataType}}</span> &boxv; Aggregation:<span>{{wsTempParamObj.aggregationType}}</span>
+        </p>
+        <label class="search" for="toggle-1"></label>
+        <input type="checkbox" id="toggle-1" name="toggle-1" ng-click="showAutoFocus()">
+
+        <div class="search-field">
+            <input type="text" name="search"class="search-box search-query" ng-model="searchMetric"
+                   placeholder="Search Metrics"
+                   ng-keypress="keyPressed($event)" id="showFocus">
+        </div>
+
+    </div>
+
+    <div class="side-panel">
+        <div class="item" ng-click="loadHomePage()">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                <polygon points="30.9 16 16 2.5 1 16 0.3 15.2 16 1.1 31.6 15.2 "/><path d="M28.1 16.2L16 5.3 3.8 16.2v14.6h24.3L28.1 16.2zM19.7 29.8h-7.4v-9.5c0-1.7 1.4-3.2 3.2-3.2h1.1c1.7 0 3.2 1.4 3.2 3.2v9.5H19.7zM20.7 29.8v-9.5c0-2.3-1.9-4.2-4.2-4.2h-1.1c-2.3 0-4.2 1.9-4.2 4.2v9.5H4.9V16.7L16 6.8l11.1 9.9v13.1C27.1 29.8 20.7 29.8 20.7 29.8z"/></svg>
+            </div>
+            <div class="title">Home</div>
+        </div>
+
+        <div class="item" ng-click="openModalWindow()">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+                <path d="M2.8 31.5l2.4-7.9H3.3c-1.6 0-2.9-1.3-2.9-2.9V3.4c0-1.6 1.3-2.9 2.9-2.9h25.4c1.6 0 2.9 1.3 2.9 2.9v17.3c0 1.6-1.3 2.9-2.9 2.9H13.3L2.8 31.5zM3.3 1.7c-1 0-1.7 0.8-1.7 1.7v17.3c0 1 0.8 1.7 1.7 1.7h3.5l-1.8 6 8-6h15.8c1 0 1.7-0.8 1.7-1.7V3.4c0-1-0.8-1.7-1.7-1.7H3.3z"/><circle cx="10.1" cy="12.3" r="1.7"/><circle cx="16.3" cy="12.3" r="1.7"/><circle cx="22.5" cy="12.3" r="1.7"/></svg>
+            </div>
+            <div class="title" data-backdrop="false">View Comments</div>
+        </div>
+
+
+
+
+        <div class="item" ng-class="{active:(weightedAverageOptionIndex==index)}"
+             ng-repeat="(index, rec) in weightedAverageOptionArr" ng-show="isWeightedAverageOn==1"
+             ng-click="changeAggregationsType()">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect x="4.2" y="11.8" class="st0" width="1" height="8.4"/><rect x="15.5" y="4.6" class="st0" width="1" height="6.7"/><rect x="8.7" y="8.8" transform="matrix(0.4509 -0.8926 0.8926 0.4509 -5.5684 14.7489)" class="st0" width="1" height="6.2"/><rect x="8.6" y="17.1" transform="matrix(-0.4783 -0.8782 0.8782 -0.4783 -4.273 37.8203)" class="st0" width="1" height="6.2"/><rect x="22.4" y="8.8" transform="matrix(-0.4783 -0.8782 0.8782 -0.4783 23.3622 37.6777)" class="st0" width="1" height="6.2"/><rect x="22.6" y="17.1" transform="matrix(0.4509 -0.8926 0.8926 0.4509 -5.319 31.7129)" class="st0" width="1" height="6.2"/><rect x="15.5" y="21" class="st0" width="1" height="6.2"/><rect x="9.6" y="21.8" transform="matrix(0.5185 -0.8551 0.8551 0.5185 -17.7435 21.3392)" class="st0" width="1" height="9.3"/><rect x="21.6" y="1" transform="matrix(0.5185 -0.8551 0.8551 0.5185 5.7609 21.5898)" class="st0" width="1" height="9.3"/><rect x="26.7" y="11.8" class="st0" width="1" height="8.4"/><rect x="9.3" y="0.8" transform="matrix(0.5407 0.8412 -0.8412 0.5407 9.2032 -5.6823)" class="st0" width="1" height="9.6"/><rect x="21.6" y="21.8" transform="matrix(0.5407 0.8412 -0.8412 0.5407 32.5073 -6.3992)" class="st0" width="1" height="9.6"/><path class="st0" d="M4.6 7.2c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C7.1 8.4 6 7.2 4.6 7.2zM4.6 11.3C3.7 11.3 3 10.6 3 9.7c0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C6.2 10.6 5.5 11.3 4.6 11.3z"/><path class="st0" d="M16.1 10.7c-3 0-5.4 2.4-5.4 5.4 0 3 2.4 5.4 5.4 5.4 3 0 5.4-2.4 5.4-5.4C21.5 13.1 19.1 10.7 16.1 10.7zM16.1 20.7c-2.5 0-4.6-2.1-4.6-4.6 0-2.5 2.1-4.6 4.6-4.6 2.5 0 4.6 2.1 4.6 4.6C20.6 18.6 18.6 20.7 16.1 20.7z"/><path class="st0" d="M15.9 0.2c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C18.4 1.3 17.3 0.2 15.9 0.2zM15.9 4.3c-0.9 0-1.6-0.7-1.6-1.6 0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C17.5 3.6 16.8 4.3 15.9 4.3z"/><path class="st0" d="M27.4 7c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C29.9 8.1 28.8 7 27.4 7zM27.4 11.1c-0.9 0-1.6-0.7-1.6-1.6 0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C29 10.4 28.3 11.1 27.4 11.1z"/><path class="st0" d="M27.4 19.7c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5 0-1-0.6-1.9-1.5-2.3C28.1 19.8 27.8 19.7 27.4 19.7zM27.4 23.8c-0.9 0-1.6-0.7-1.6-1.6 0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C29 23.1 28.3 23.8 27.4 23.8z"/><path class="st0" d="M16.1 26.8c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C18.6 27.9 17.5 26.8 16.1 26.8zM16.1 30.9c-0.9 0-1.6-0.7-1.6-1.6 0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C17.6 30.2 16.9 30.9 16.1 30.9z"/><path class="st0" d="M4.6 19.9c-1.4 0-2.5 1.1-2.5 2.5 0 1.4 1.1 2.5 2.5 2.5 1.4 0 2.5-1.1 2.5-2.5C7.1 21.1 6 19.9 4.6 19.9zM4.6 24C3.7 24 3 23.3 3 22.4c0-0.9 0.7-1.6 1.6-1.6 0.9 0 1.6 0.7 1.6 1.6C6.2 23.3 5.5 24 4.6 24z"/></svg>
+            </div>
+            <div class="title">Data {{rec}}</div>
+        </div>
+
+
+
+
+
+        <div class="item" ng-repeat="(index,metric) in metricTypeArr" ng-click="onClickMetricType(metric,index)"
+             ng-class="{active:(metricTypeSelectedIndex==index)}">
+            <div class="icon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path class="st0" d="M29.7 0.2H2.3c-1.1 0-2.1 0.9-2.1 2.1v27.5c0 1.1 0.9 2.1 2.1 2.1h27.5c1.1 0 2.1-0.9 2-2.1V2.2C31.8 1.1 30.8 0.2 29.7 0.2zM31 29.1c0.1 1.1-0.8 2-1.9 2H3c-1.1 0-2-0.9-2-2V2.9c0-1.1 0.9-2 2-2h26c1.1 0 2 0.9 2 2V29.1z"/><rect x="4.3" y="6.8" class="st0" width="1.9" height="1.9"/><path class="st0" d="M18.9 4.5c-1.5 0-2.7 1-3.1 2.3H7v1.9h8.9c0.4 1.3 1.6 2.2 3 2.2 1.8 0 3.2-1.4 3.2-3.2C22.1 5.9 20.7 4.5 18.9 4.5zM18.9 10.3c-1.4 0-2.6-1.2-2.6-2.6 0-1.4 1.2-2.6 2.6-2.6 1.4 0 2.6 1.2 2.6 2.6C21.5 9.1 20.3 10.3 18.9 10.3z"/><rect x="23.3" y="6.8" class="st0" width="4.4" height="1.9"/><rect x="4.3" y="15.1" class="st0" width="1.9" height="1.9"/><rect x="7" y="15.1" class="st0" width="4.6" height="1.9"/><path class="st0" d="M19.1 15.1c-0.4-1.3-1.7-2.3-3.1-2.3 -1.8 0-3.2 1.4-3.2 3.2s1.4 3.2 3.2 3.2c1.4 0 2.6-0.9 3-2.2h8.7v-1.9H19.1zM16 18.6c-1.4 0-2.6-1.2-2.6-2.6 0-1.4 1.2-2.6 2.6-2.6s2.6 1.2 2.6 2.6C18.6 17.4 17.4 18.6 16 18.6z"/><rect x="4.3" y="23.3" class="st0" width="1.9" height="1.9"/><path class="st0" d="M18.9 21.1c-1.5 0-2.7 0.9-3 2.2H7v1.9h8.9c0.4 1.3 1.6 2.2 3 2.2 1.8 0 3.2-1.4 3.2-3.2S20.7 21.1 18.9 21.1zM18.9 26.9c-1.4 0-2.6-1.2-2.6-2.6s1.2-2.6 2.6-2.6c1.4 0 2.6 1.2 2.6 2.6S20.3 26.9 18.9 26.9z"/><rect x="23.3" y="23.3" class="st0" width="4.4" height="1.9"/></svg>
+            </div>
+            <div class="title">{{metric.metricType}}</div>
+        </div>
+
+        <!-- this needs to be cleaned  -->
+        <div class="pull-side-menu" style="display: none;">
+            <div class="links">
+                <a href="" ng-click="changeTheme('theme1')" ng-class="{active:(selectedTheme=='theme1')}">Light</a>
+                <a href="" ng-click="changeTheme('theme2')" ng-class="{active:(selectedTheme=='theme2')}">Dark</a>
+            </div>
+            <div class="close-handle">
+                <div class="arrow-right"></div>
+                <div class="arrow-left"></div>
+            </div>
+        </div>
+        <div class="status-element"></div>
+        <!-- end of this needs to be cleaned  -->
+    </div>
+    <div class="main-panel">
+        <div class="top-nav" ng-hide="isCommentsVisible">
+            <div class="dashboard_nav_menu">
+                <div class="left">
+                    <a href="" alt="{{drillDownHierarchyArr[0].optionLabel}}"
+                       ng-click="onClickBreadCrumb(drillDownHierarchyArr[0],$event)"
+                            >{{drillDownHierarchyArr[0].shortname+"&nbsp;&nbsp;>&nbsp;"}}</a>
+
+                    <div ng-repeat="(index1, rec) in drillDownHierarchyArr" class="btn-group dropdown-select"
+                         ng-if="aggregationsDrillOptionsArrMultilevelArr[index1].length>0">
+                        <button ng-if="selectedOptionArr[index1+1]==undefined" type="button"
+                                class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                            {{drillDownLabelArr[index1+1]}}
+                        <span class="glyphicon glyphicon-triangle-bottom"
+                              style="color:#064366;"></span>
+
+                        </button>
+
+                        <button ng-if="selectedOptionArr[index1+1]!=undefined" type="button"
+                                class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                            {{selectedOptionArr[index1+1]}}
+                        <span class="glyphicon glyphicon-triangle-bottom"
+                              style="color:#064366;"></span>
+
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-click="changeAggregationsDownOption(index1,'true')"
+                                ng-class="{active:(drillDownOptionSelectedIndex==index)}"
+                                ng-repeat="(index, rec) in aggregationsDrillOptionsArrMultilevelArr[index1]">
+                                <a> {{rec.shortname}} </a>
+                            </li>
+                        </ul>
+                        <span style="color: #001934;text-decoration: none;font-size: 16px;">&nbsp;&nbsp;>&nbsp;</span>
+                    </div>
+                </div>
+
+                <div class="right">
+                    <div class="btn-group pull-right dropdown-select" style="z-index:100;">
+                        <button type="button" class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                            {{aggregationsSelectedDate}}
+                            <span class="glyphicon glyphicon-triangle-bottom margin_left5"
+                                  style="color:#5A6564;"></span>
+                        </button>
+                        <ul class="dropdown-menu text-left" role="menu">
+                            <li ng-click="changeAggregationsMonth(index)"
+                                ng-class="{active:(portalMonthSelectedIndex==index)}"
+                                ng-repeat="(index, rec) in aggregationsDateArr">
+                                <a> {{rec}} </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div ng-if="!isCardViewVisible && wsTempParamObj.apiversion>=2.2"
+                     class="btn-group pull-right dropdown-select" style=" margin-right:30px;">
+                    <button type="button" class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                        {{processValue}}
+                        <span class="glyphicon glyphicon-triangle-bottom margin_left5" style="color:#5A6564;"></span>
+                    </button>
+                    <ul class="dropdown-menu text-left" role="menu">
+                        <li ng-click="changeAggregationsProcess()"
+                            ng-class="{active:(portalProcessSelectedIndex==index)}"
+                            ng-repeat="(index, rec) in aggregationsProcessArr">
+                            <a> {{rec}} </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div ng-show="aggregationsProcessArr.length>0 && isPage2Visible"
+                     class="btn-group pull-right dropdown-select" style="z-index:100; margin-right:60px;">
+                    <button type="button" class="btn btn-default dropdown-toggle text-left" data-toggle="dropdown">
+                        {{portalStatusLabel}}
+                        <span class="glyphicon glyphicon-triangle-bottom margin_left5" style="color:#5A6564;"></span>
+                    </button>
+                    <ul class="dropdown-menu text-left" role="menu">
+                        <li ng-click="changeAggregationsStatus()" ng-class="{active:(portalStatusSelectedIndex==index)}"
+                            ng-repeat="(index, rec) in aggregationsStatusArr">
+                            <a> {{rec.label}} </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="main_page_container">
+            <div class="demo__slides_main" bc-flickity="{{ flickityOptions_main }}"
+                 bc-flickity-id="{{ flickityId_main }}">
+                <div class="demo__slide_main">
+
+                    <!-- page one -->
+                    <div class="page-one">
+                        <div class="fourth fl mb20 mr20">
+                            <div class="card-top-stripe">Summary</div>
+                            <div class="card-container pr0">
+
+                                <div class="doughnut-table">
+                                    <table class="table">
+                                        <tbody>
+                                        <tr ng-click="onClickCard('G');">
+                                            <td class="value">{{selectedAggregationRecord.green}}</td>
+                                            <td class="percent">
+                                                {{calculateTheDoughnutPer(selectedAggregationRecord.green)}}<span
+                                                    style="font-size:0.5em;">%</span></td>
+                                            <td class="trend">
+                                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.green,previousAggregationRecord.green))"></div>
+                                            </td>
+                                            <td class="tr">&raquo;</td>
+                                        </tr>
+                                        <tr ng-click="onClickCard('Y');">
+                                            <td class="value">{{selectedAggregationRecord.yellow}}</td>
+                                            <td class="percent">
+                                                {{calculateTheDoughnutPer(selectedAggregationRecord.yellow)}} <span
+                                                    style="font-size:0.5em;">%</span></td>
+                                            <td class="trend">
+                                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.yellow,previousAggregationRecord.yellow))"></div>
+                                            </td>
+                                            <td class="tr">&raquo;</td>
+                                        </tr>
+                                        <tr ng-click="onClickCard('R');">
+                                            <td class="value">{{selectedAggregationRecord.red}}</td>
+                                            <td class="percent">
+                                                {{calculateTheDoughnutPer(selectedAggregationRecord.red)}} <span
+                                                    style="font-size:0.5em;">%</span></td>
+                                            <td class="trend">
+                                                <div ng-class="displayTrendStatus(calculateTrends(selectedAggregationRecord.red,previousAggregationRecord.red))"></div>
+                                            </td>
+                                            <td class="tr">&raquo;</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="fourth fl mb20">
+                            <div class="card-top-stripe">Status by Process
+                            </div>
+                            <div class="card-container">
+
+                            </div>
+                        </div>
+                        <div class="half-x">
+                            <div class="card-top-stripe">Status by History
+                                <span class="button-export" data-toggle="tooltip" data-placement="bottom"
+                                      title="Data Export" ng-click="exportToCSV()"></span>
+                            </div>
+                            <div class="card-container">
+                                <dashboard-chart
+                                    data="barChartData"
+                                    options="barChartOption"
+                                    type="chartType"
+                                    on-load="getChartObjBar(obj)"
+                                    width="860px" height="255px">
+                                </dashboard-chart>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- page two -->
+                    <div class="demo__slide_main">
+                        <div>
+                            <div class="demo__slides_card" bc-flickity="{{ flickityOptionsCard }}" bc-flickity-id="{{ flickityIdCard }}">
+                                <div class="slide_card">
+                                    <div class="animated fadeIn" ng-click="intializeDrillDownData(record);"
+                                         ng-class="['list' + $index]" style="cursor: pointer;">
+                                         <p>page two here</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+    <!--  modals  -->
+    <modal id="DeleteFileModal" modal-show="showDeleteDialog" class="modal" style="display: none;">
+        <div class="modal-container-remove-file">
+            <div class="modal-header-comments">
+                <a href="#" data-dismiss="modal" aria-hidden="true" class="ico_close"></a>
+                <p>{{selectedFileRecord.fileName}}</p>
+            </div>
+            <div class="modal-body-comments">
+                <p><span class="glyphicons glyphicons-warning-sign"> You are about to delete this document </span></p>
+            </div>
+            <div class="modal-footer-comments">
+                <a class="button-delete button-cancel" style="cursor: pointer!important;" data-dismiss="modal"
+                   ng-click="showDeleteDialog=false"><span class="glyphicon glyphicons-remove"> Cancel</span></a>
+                <a class="button-delete button-confirm" style="cursor: pointer!important;"><span
+                        class="glyphicon glyphicons-check" ng-click="onConfirmDelete()">Confirm</span></a>
+            </div>
+        </div>
+    </modal>
+
+
+    <modal id="attachmentModal" modal-show="showAttachmentDialog" class="modal" style="display: none;">
+        <div class="modal-container-remove-file">
+            <div class="modal-header-comments">
+                <a href="#" data-dismiss="modal" aria-hidden="true" class="ico_close"></a>
+            </div>
+            <div class="modal-body-comments">
+                <p><span class="glyphicons glyphicons-warning-sign"> <br>Only 3 attachments is allowed! <br>
+                But comment will get added to metric!</span></p>
+            </div>
+            <br>
+            <div class="modal-footer-comments">
+                <a class="button-delete button-cancel" style="cursor: pointer!important;" data-dismiss="modal"
+                   ng-click="showAttachmentDialog=false"><span class="glyphicon glyphicons-remove"> OK</span></a>
+            </div>
+        </div>
+    </modal>
+
+    <!-- modal search -->
+    <modal id="SearchMetrix" modal-show="showSearchModal" class="modal" style="display: none;">
+        <div class="modal-content animated modal-search-metrics">
+            <div class="modal-header"> Lorem ipsum dolor sit amet.
+                <button type="button" class="close ng-scope" data-dismiss="modal" aria-label="Close">
+                    <span class="button-close"></span>
+                </button>
+            </div>
+            <div class="modal-body p10" style="overflow-y:scroll;height: 660px; margin-top:40px;">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, minima!
+            </div>
+        </div>
+    </modal>

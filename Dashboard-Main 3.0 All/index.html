@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9"> <![endif]-->
+<!--[if IE 9]>
+<html class="no-js lt-ie10"> <![endif]-->
+<html data-ng-app="location_macro" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui=1, user-scalable=0"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- stylesheets -->
+    <link rel="stylesheet" href="./lib/Bootstrap3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="view/style/css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="view/style/css/style_light.css">
+    <link rel="stylesheet" type="text/css" href="view/style/css/approver.css">
+
+
+    
+    <link rel="stylesheet" type="text/css" href="view/style/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="./lib/Animation/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="./lib/flickity/css/flickity.css">
+
+    <!--    Multilevel menu stylesheets -->
+    <!--     <link rel="stylesheet" type="text/css" href="./lib/MultiLevelMenu/css/component.css"> -->
+    <link rel="stylesheet" type="text/css" href="./lib/Select2/select2.min.css">
+    <!-- icons -->
+    <link href="view/common/images/icon-set/apple-touch-icon.png" rel="apple-touch-icon"/>
+    <link href="view/common/images/icon-set/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76"/>
+    <link href="view/common/images/icon-set/apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120"/>
+    <link href="view/common/images/icon-set/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152"/>
+    <link href="view/common/images/icon-set/apple-touch-icon-180x180.png" rel="apple-touch-icon" sizes="180x180"/>
+    <link href="view/common/images/icon-set/icon-hires.png" rel="icon" sizes="192x192"/>
+    <link href="view/common/images/icon-set/icon-normal.png" rel="icon" sizes="128x128"/>
+    <title>Digital Dashboard</title>
+</head>
+
+<body class="ng-app:location_macro" id="ng-app">
+<!-- <div us-spinner="" spinner-key="spinner-1" ng-show="isFmoDashboardSpinnerVisible"> </div> -->
+<div data-ng-view class="container-fluid helpfulTag">
+</div>
+
+<script src="./lib/jquery/jquery1.11.min.js"></script>
+<script src="./lib/jquery/jquery-ui.min.js"></script>
+<script src="./lib/jquery/jquery.cookie.js"></script>
+<script src="./lib/Bootstrap3.3.2/js/bootstrap.min.js"></script>
+<script src="./lib/jquery/jquery.mousewheel.js"></script>
+<script src="./lib/jquery/jquery.touchSwipe.min.js"></script>
+
+<script src="./lib/Angular/angular.min.js"></script>
+<script src="./lib/Angular/angular-cookies.min.js"></script>
+<script src="./lib/Angular/angular-route.min.js"></script>
+<script src="./lib/Angular/angular-resource.min.js"></script>
+<script src="./lib/Spin/spin.min.js"></script>
+<script src="./lib/Spin/angular-spinner.js"></script>
+
+<script src="./lib/Angular/angular-sanitize.min.js"></script>
+<!--Sanitize-->
+<script src="./lib/flickity/dist/flickity.pkgd.min.js"></script>
+<!--flickity carousel-->
+<script src="./lib/flickity/js/angular-flickity.js"></script>
+<!--flickity carousel-->
+<script src="./lib/Pull-Down%20menu/impulse.js"></script>
+<!--Pull down menu-->
+
+<!-- <script src="./lib/MultiLevelMenu/js/classie.js"></script> -->
+<!--Multilevel Menu carousel-->
+<!-- <script src="./lib/MultiLevelMenu/js/modernizr-custom.js"></script> -->
+<!--Multilevel Menu carousel-->
+<!-- <script src="./lib/MultiLevelMenu/js/main.js"></script> -->
+<!--Multilevel Menu carousel-->
+
+<script src="./lib/Select2/select2.min.js"></script>
+<!--Select2 library-->
+<!--<script src="./lib/Select2/angular-select2.min.js"></script>&lt;!&ndash;Select2 library&ndash;&gt;-->
+<script src="./lib/ScrollSpy/jquery.withinviewport.js"></script>
+<!--ScrollSPy-->
+<script src="./lib/ScrollSpy/withinviewport.js"></script>
+<!--ScrollSPy-->
+
+<!-- Load script  -->
+<script src="Config/dashboard_constants.js"></script>
+<!--All dashboard constant-->
+<script src="Controller/functions.js"></script>
+<!--Global Functions-->
+<!--moment.js-->
+<script src="./lib/moment/moment.js"></script>
+<script src="init.js"></script>
+<script src="Config/cli.js"></script>
+<script src="Controller/dashDataProcessFactory.js"></script>
+<script src="Controller/UtilityService.js"></script>
+<script src="Controller/components.js"></script>
+<script src="Directive/dashboard-chartjs2.0.js"></script>
+<script src="Directive/modalShow.js"></script>
+<script src="Directive/fileChangeDir.js"></script>
+<script src="Controller/slaDashboardCtrl.js"></script>
+<script src="Controller/approverDashboardCtrl.js"></script>
+<!-- 3d carousel -->
+<script src="./lib/3dCarousel/3dcarousel.js"></script>
+<script src="./lib/d3/d3.min.js"></script>
+<!-- ui-grid -->
+<script src="./lib/Angular/angular-touch.js"></script>
+<script src="./lib/Angular/angular-animate.js"></script>
+<script src="./lib/Angular/loading-bar.min.js"></script>
+
+<!-- chartJS 2 -->
+<script src="./lib/ChartJS216/Chart.bundle.js"></script>
+<!--Portal Controller -->
+<script src="Model/portalservice.js"></script>
+
+</body>
+</html>

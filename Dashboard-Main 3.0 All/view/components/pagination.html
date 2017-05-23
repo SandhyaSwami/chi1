@@ -1,0 +1,22 @@
+<div class="pagetab pagetab_{{type}}">
+    <div class="pagetab_tabs" ng-transclude>
+    </div>
+    <div class="pagetab_controls clearfix">
+        <div class="pagetab_control_col">
+            <button class="pagetab_control pagetab_control_prev"  ng-click="setPageNumber(selectedPageNum,'back')">Previous</button>
+        </div>
+        <div class="pagetab_control_col">
+            <div class="pagetab_count" >
+                <select class="pagetab_count_current" ng-model="selectedPageNum" ng-change="setPageNumber(selectedPageNum,'change')">
+                    <option ng-repeat="child_item in items" value="{{$index+1}}" ng-selected="{{child_item.item_active}}">{{(child_item.title.length>0) ? child_item.title : $index+1}}</option>
+                </select>
+            	<span ng-if="type=='number' || type==''">of {{items.length}}</span>
+				<span ng-if="type=='label'">{{selectedPageNum}} of {{items.length}}</span>
+            </div>
+        </div>
+		
+        <div class="pagetab_control_col">
+            <button class="pagetab_control pagetab_control_next" ng-click="setPageNumber(selectedPageNum,'next')">Next</button>
+        </div>
+    </div>
+</div>
